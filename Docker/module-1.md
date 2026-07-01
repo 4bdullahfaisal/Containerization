@@ -105,7 +105,7 @@ cd my-web-app
     </style>
 </head>
 <body>
-    <h1>🚀 My First Docker App</h1>
+    <h1> My First Docker App</h1>
     <p>This container is running a custom web page.</p>
 </body>
 </html>
