@@ -153,7 +153,7 @@ docker build -t my-web-app .
 ### 5. Run the Custom Image
 
 ```bash
-docker run -d -p 8080:8080 my-web-app
+docker run -d -p 8080:80 my-web-app
 ```
 
 Open `http://localhost:8080` in your browser.
