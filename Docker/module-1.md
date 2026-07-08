@@ -1,13 +1,20 @@
 # Docker — Container & Custom Image
+
 **Purpose:** Run your first container and build a custom Docker image
 
 ---
 
 ## What is Docker?
 
-Docker is a platform to **build, run, and share** applications inside containers.
+`Docker` is a platform to **build, run, and share** applications inside containers.
 
-A container is a lightweight, isolated environment that includes everything needed to run an application.
+**or**
+
+`Docker` is a platform that lets you package applications and their dependencies into standardized units called containers.
+
+- Containers are running instances of Docker images.
+
+A `Container` is a lightweight, isolated environment that includes everything needed to run an application.
 
 **Analogy:** Docker is like a shipping container — it packages your app and its dependencies so it runs the same anywhere.
 
@@ -30,9 +37,13 @@ A container is a lightweight, isolated environment that includes everything need
 |-----------|--------------|
 | Docker Client | Command line tool (`docker`) |
 | Docker Daemon | Runs on host, manages containers |
+| Dockerfile | Script for building images |
 | Image | Template for creating containers |
 | Container | Running instance of an image |
+| Volumes | Persistent data storage |
+| Networks | Container communication |
 | Registry | Stores images (e.g., Docker Hub) |
+| Docker Compose | Multi-container orchestration |
 
 ---
 
@@ -105,7 +116,7 @@ cd my-web-app
     </style>
 </head>
 <body>
-    <h1> My First Docker App</h1>
+    <h1>🚀 My First Docker App</h1>
     <p>This container is running a custom web page.</p>
 </body>
 </html>
@@ -113,12 +124,21 @@ cd my-web-app
 
 ### 3. Create `Dockerfile`
 
+A Dockerfile is a **text document** containing instructions to build a Docker image. It's the blueprint for creating containers.
+
 ```dockerfile
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
+| Line | Meaning |
+|------|---------|
+| `FROM nginx:alpine` | Base image (lightweight nginx) |
+| `COPY index.html ...` | Copy file from laptop into container |
+
 ### 4. Build the Image
+
+Docker images are **read-only templates** containing instructions for creating containers. They're built from Dockerfiles and stored in registries.
 
 ```bash
 docker build -t my-web-app .
@@ -140,29 +160,53 @@ Open `http://localhost:8080` in your browser.
 
 ---
 
-## Dockerfile Breakdown
+## Dockerfile Common Instructions Reference
 
-```dockerfile
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
+| Instruction | Purpose | Example |
+|-------------|---------|---------|
+| **FROM** | Sets base image | `FROM nginx:alpine` |
+| **RUN** | Executes commands during build | `RUN apt-get update` |
+| **COPY** | Copies files from host to image | `COPY index.html /usr/share/...` |
+| **ADD** | Like COPY, but can unpack archives | `ADD app.tar.gz /app/` |
+| **WORKDIR** | Sets working directory | `WORKDIR /app` |
+| **ENV** | Sets environment variables | `ENV PORT=8080` |
+| **EXPOSE** | Documents port exposure | `EXPOSE 80` |
+| **CMD** | Default command to run | `CMD ["python", "app.py"]` |
+| **ENTRYPOINT** | Main command (can't be overridden) | `ENTRYPOINT ["java", "-jar"]` |
+| **USER** | Sets user for running container | `USER appuser` |
+| **ARG** | Build-time variables | `ARG VERSION=latest` |
+
+---
+
+## Docker Daemon
+
+The Docker daemon (`dockerd`) is the background service managing Docker objects on the host system.
+
+```bash
+# Start daemon
+sudo systemctl start docker
+
+# Stop daemon
+sudo systemctl stop docker
+
+# Restart daemon
+sudo systemctl restart docker
+
+# Check daemon status
+sudo systemctl status docker
+
+# View daemon logs
+journalctl -u docker.service -f
+
+# Debug mode
+docker -D info
 ```
-
-| Line | Meaning |
-|------|---------|
-| `FROM nginx:alpine` | Base image (lightweight nginx) |
-| `COPY index.html ...` | Copy file from laptop into container |
-| `EXPOSE 80` | (Optional) Document which port container listens on |
 
 ---
 
 ## Common Docker Commands Summary
 
 ```bash
-# Images
-docker images                  # List images
-docker rmi [image-id]          # Remove image
-docker build -t name:tag .     # Build image
-
 # Containers
 docker run -d -p host:container image
 docker ps                      # List running
@@ -171,6 +215,11 @@ docker stop [id]               # Stop container
 docker rm [id]                 # Remove container
 docker logs [id]               # View container logs
 docker exec -it [id] bash      # Access container shell
+
+# Images
+docker images                  # List images
+docker rmi [image-id]          # Remove image
+docker build -t name:tag .     # Build image
 
 # Cleanup
 docker container prune         # Remove stopped containers
