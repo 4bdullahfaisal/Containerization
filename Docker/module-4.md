@@ -60,7 +60,7 @@ docker inspect app1 | grep IPAddress
 docker exec app2 ping [IP-of-app1]
 ```
 
-> ⚠️ Containers on default bridge cannot reach each other by container name — only by IP.
+>  Containers on default bridge cannot reach each other by container name — only by IP.
 
 ---
 
@@ -90,7 +90,7 @@ docker run -d --name web --network host nginx
 # Access at http://localhost (no port mapping needed)
 ```
 
-> ⚠️ Use only when performance is critical and security is less of a concern.
+>  Use only when performance is critical and security is less of a concern.
 
 ---
 
