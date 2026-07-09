@@ -1,7 +1,4 @@
-# Docker Day 4 — Docker Networking
-
-**Date:** [Today's Date]  
-**Purpose:** Connect containers to each other and the outside world
+# Docker — Docker Networking
 
 ---
 
@@ -223,25 +220,17 @@ docker logs web1
 
 ## Commands Summary
 
-```bash
-# Network management
-docker network ls
-docker network create mynet
-docker network inspect mynet
-docker network rm mynet
-docker network prune
-
-# Run container on specific network
-docker run -d --network mynet nginx
-
-# Connect/disconnect container
-docker network connect mynet container-name
-docker network disconnect mynet container-name
-
-# Port mapping
-docker run -d -p 8080:80 nginx
-docker run -d -p 3000:3000 node-app
-```
-
+| Command | Description |
+|---------|-------------|
+| `docker network ls` | List all networks |
+| `docker network create mynet` | Create a network named "mynet" |
+| `docker network inspect mynet` | Display detailed information about "mynet" |
+| `docker network rm mynet` | Remove the network "mynet" |
+| `docker network prune` | Remove all unused networks |
+| `docker run -d --network mynet nginx` | Run a container on the specific network "mynet" |
+| `docker network connect mynet container-name` | Connect a container to "mynet" |
+| `docker network disconnect mynet container-name` | Disconnect a container from "mynet" |
+| `docker run -d -p 8080:80 nginx` | Map host port 8080 to container port 80 |
+| `docker run -d -p 3000:3000 node-app` | Map host port 3000 to container port 3000 |
 
 ---
