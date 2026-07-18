@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Nextcloud App
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    restart: unless-stopped
+    ports:
+      - "8083:80"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud_user
+      - MYSQL_PASSWORD=nextcloud_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - nextcloud_data:/var/www/html
+      - ./apps:/var/www/html/custom_apps
+      - ./config:/var/www/html/config
+      - ./data:/var/www/html/data
+    depends_on:
+      - db
+    networks:
+      - nextcloud-network
+
+  # MySQL Database
+  db:
+    image: mariadb:10.11
+    container_name: nextcloud-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud_user
+      - MYSQL_PASSWORD=nextcloud_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - nextcloud-network
+
+  # phpMyAdmin (Optional - Database GUI)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: nextcloud-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8084:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    depends_on:
+      - db
+    networks:
+      - nextcloud-network
+
+volumes:
+  nextcloud_data:
+  db_data:
+
+networks:
+  nextcloud-network:
+    driver: bridge
