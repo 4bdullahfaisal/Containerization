@@ -1,4 +1,4 @@
-1. Static Website in Docker (Nginx)
+# Static Website in Docker (Nginx)
 
 Stack: HTML/CSS/JS only
 
