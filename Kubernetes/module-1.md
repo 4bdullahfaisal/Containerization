@@ -254,4 +254,246 @@ minikube stop
 
 ---
 
+
+# Kubernetes — Introduction to Kubernetes
+
+---
+
+## What is Kubernetes?
+
+**Kubernetes (K8s)** is an open-source platform for **automating deployment, scaling, and management of containerized applications**.
+
+| Feature | What it does |
+|---------|--------------|
+| **Automated deployment** | Deploy containers without manual steps |
+| **Scaling** | Increase or decrease replicas automatically |
+| **Self-healing** | Restart failed containers |
+| **Load balancing** | Distribute traffic across containers |
+| **Rolling updates** | Update without downtime |
+
+---
+
+## Why Kubernetes?
+
+| Without Kubernetes (Docker only) | With Kubernetes |
+|----------------------------------|-----------------|
+| Run containers manually | Deploy and manage automatically |
+| No automatic scaling | Scale up/down based on demand |
+| If container crashes, it stays crashed | Kubernetes restarts it |
+| No built-in load balancing | Built-in service discovery + load balancing |
+
+---
+
+## Kubernetes vs Docker Swarm
+
+| Feature | Kubernetes | Docker Swarm |
+|---------|------------|--------------|
+| Complexity | High (more features) | Low (simpler) |
+| Scalability | Very high | Moderate |
+| Community | Large (CNCF) | Smaller |
+| Production use | Enterprise standard | Small teams |
+| Learning curve | Steep | Gentle |
+
+---
+
+## Key Kubernetes Components (High-Level)
+
+| Component | Purpose |
+|-----------|---------|
+| **Pod** | Smallest unit — runs one or more containers |
+| **Deployment** | Manages replicas and updates |
+| **Service** | Exposes pods to network |
+| **Ingress** | Routes external traffic to services |
+| **ConfigMap** | Store configuration (non-sensitive) |
+| **Secret** | Store sensitive data (passwords, tokens) |
+| **Namespace** | Logical grouping of resources |
+| **Persistent Volume** | Storage for pods |
+
+---
+
+## Kubernetes Architecture (Simplified)
+
+```
+┌─────────────────────────────────────────────────┐
+│                 CONTROL PLANE                   │
+│  ┌─────────┐  ┌──────────┐  ┌──────────────┐   │
+│  │ API     │  │ Scheduler│  │ Controller   │   │
+│  │ Server  │  │          │  │ Manager      │   │
+│  └─────────┘  └──────────┘  └──────────────┘   │
+└─────────────────────────────────────────────────┘
+                       │
+┌─────────────────────────────────────────────────┐
+│                    NODE 1                       │
+│  ┌─────────────┐  ┌─────────────────────────┐   │
+│  │  Pod        │  │  Pod                    │   │
+│  │  container  │  │  container  container   │   │
+│  └─────────────┘  └─────────────────────────┘   │
+│  ┌─────────────────────────────────────────┐     │
+│  │  kubelet (agent)                        │     │
+│  └─────────────────────────────────────────┘     │
+└─────────────────────────────────────────────────┘
+```
+
+---
+
+## Installation Options (Local Development)
+
+| Option | Purpose |
+|--------|---------|
+| **Minikube** | Single-node cluster (local learning) |
+| **Kind** | Kubernetes in Docker |
+| **k3s** | Lightweight Kubernetes |
+| **Docker Desktop** | Built-in Kubernetes (easiest) |
+| **Cloud (EKS, GKE, AKS)** | Production clusters |
+
+---
+
+## Install Minikube (Recommended)
+
+### Windows
+
+```bash
+# Install Minikube
+choco install minikube
+
+# Install kubectl
+choco install kubernetes-cli
+
+# Start Minikube
+minikube start
+
+# Check status
+minikube status
+
+# Stop Minikube
+minikube stop
+```
+
+### Verify
+
+```bash
+kubectl version --client
+kubectl cluster-info
+```
+
+---
+
+## Basic kubectl Commands
+
+| Command | Purpose |
+|---------|---------|
+| `kubectl get nodes` | Show nodes in cluster |
+| `kubectl get pods` | Show pods |
+| `kubectl get deployments` | Show deployments |
+| `kubectl get services` | Show services |
+| `kubectl get all` | Show all resources |
+
+---
+
+## Your First Kubernetes Deployment
+
+### Step 1: Create a deployment
+
+```bash
+kubectl create deployment nginx-deploy --image=nginx
+```
+
+### Step 2: Check status
+
+```bash
+kubectl get pods
+kubectl get deployments
+```
+
+### Step 3: Expose the deployment as a service
+
+```bash
+kubectl expose deployment nginx-deploy --type=LoadBalancer --port=8080 --target-port=80
+```
+
+### Step 4: Get service URL
+
+```bash
+minikube service nginx-deploy
+```
+
+### Step 5: Scale the deployment
+
+```bash
+kubectl scale deployment nginx-deploy --replicas=3
+kubectl get pods
+```
+
+### Step 6: Delete resources
+
+```bash
+kubectl delete deployment nginx-deploy
+kubectl delete service nginx-deploy
+```
+
+---
+
+## YAML Manifest Example
+
+Kubernetes resources are defined in YAML files.
+
+### nginx-deployment.yaml
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+```
+
+### Apply the manifest
+
+```bash
+kubectl apply -f nginx-deployment.yaml
+```
+
+---
+
+## Common kubectl Commands Summary
+
+```bash
+kubectl get nodes
+kubectl get pods
+kubectl get deployments
+kubectl get services
+kubectl get all
+
+kubectl create deployment name --image=image
+kubectl expose deployment name --type=LoadBalancer --port=80 --target-port=80
+kubectl scale deployment name --replicas=3
+kubectl delete deployment name
+kubectl delete service name
+
+kubectl apply -f file.yaml
+kubectl delete -f file.yaml
+
+kubectl logs pod-name
+kubectl describe pod pod-name
+kubectl exec -it pod-name -- /bin/bash
+```
+
+---
+
 **End of Kubernetes Architecture & Components**
