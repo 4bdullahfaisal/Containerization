@@ -86,7 +86,7 @@ Worker nodes are the **machines** where actual workloads (containers) run.
 | **ConfigMap** | Non-sensitive configuration | app config |
 | **Secret** | Store sensitive data | passwords, tokens |
 | **Ingress** | External HTTP/HTTPS routing | domain → service |
-| **Namespace** | Virtual cluster inside a cluster |
+| **Namespace** | Virtual cluster inside a cluster | dev, staging, prod |
 | **PersistentVolume** | Storage for pods | database storage |
 
 ---
