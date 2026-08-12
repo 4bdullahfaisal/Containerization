@@ -7,6 +7,13 @@ Kubernetes (K8s) is an open-source platform for **automating deployment, scaling
 
 **Analogy:** Kubernetes is like a ship captain who manages many containers (Docker containers) across multiple ships (servers).
 
+| Concept | Analogy |
+|---------|---------|
+| Docker | Individual shipping container |
+| Kubernetes | Fleet manager / Captain |
+| Node | Ship |
+| Pod | Group of containers in same shipping container |
+
 | Feature | What it does |
 |---------|--------------|
 | **Automated deployment** | Deploy containers without manual steps |
