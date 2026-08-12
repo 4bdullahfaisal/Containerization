@@ -25,10 +25,12 @@ Kubernetes (K8s) is an open-source platform for **automating deployment, scaling
 | Traffic increases → need more copies | Scales up/down automatically |
 | New version of app → need zero downtime | Rolling updates |
 | Container needs to talk to another | Built-in service discovery and networking |
+| Multiple containers | Load balancing |
 
 ---
+## Kubernetes Architecture
 
-## Master Node (Control Plane)
+### Master Node (Control Plane)
 
 The master node is the **brain** of the cluster. It manages scheduling, scaling, and state.
 
@@ -39,7 +41,7 @@ The master node is the **brain** of the cluster. It manages scheduling, scaling,
 | **Controller Manager** | Keeps cluster in desired state |
 | **etcd** | Cluster database (stores all data) |
 
-## Worker Node
+### Worker Node
 
 Worker nodes are the **machines** where actual workloads (containers) run.
 
