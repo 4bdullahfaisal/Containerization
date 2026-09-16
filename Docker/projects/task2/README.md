@@ -1,23 +1,10 @@
 # ProgreeApp
 
 <p align="center">
-  <img src="https://img.shields.io/badge/ProgreeApp-Flask%20Container-0d9488?style=for-the-badge&logo=flask&logoColor=white" alt="ProgreeApp Flask container">
-  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12">
-  <img src="https://img.shields.io/badge/Docker-Multi--stage-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker multi-stage build">
-  <img src="https://img.shields.io/badge/Port-6767%3A6767-f59e0b?style=for-the-badge&logo=docker&logoColor=white" alt="Container port 6767 mapped to host port 6767">
-</p>
-
-<p align="center">
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#api-reference">API reference</a> ·
-  <a href="#configuration">Configuration</a> ·
-  <a href="#security-notes">Security</a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/4bdullahfaisal/Containerization/tree/main/Docker/projects"><img src="https://img.shields.io/badge/source-Containerization-181717?style=flat-square&logo=github&logoColor=white" alt="View source on GitHub"></a>
-  <img src="https://img.shields.io/badge/status-ready-16a34a?style=flat-square" alt="Project status ready">
-  <img src="https://img.shields.io/badge/license-not%20specified-64748b?style=flat-square" alt="License not specified">
+  <img src="https://img.shields.io/badge/ProgreeApp-Flask%20Container-0d9488?style=flat&logo=flask&logoColor=white" alt="ProgreeApp Flask container">
+  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/Docker-Multi--stage-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker multi-stage build">
+  <img src="https://img.shields.io/badge/Port-6767%3A6767-f59e0b?style=flat&logo=docker&logoColor=white" alt="Container port 6767 mapped to host port 6767">
 </p>
 
 > A compact, production-minded Flask service packaged as a small, secure Docker image. ProgreeApp demonstrates environment-based configuration, health checks, a non-root runtime user, and a clean multi-stage build.
@@ -224,17 +211,9 @@ Confirm the port mapping and that the service is listening on all interfaces. Th
 
 Project screenshots are available in the [`screenshots/`](screenshots/) directory:
 
-- [Application view 1](screenshots/Screenshot%202026-09-15%20114514.png)
-- [Application view 2](screenshots/Screenshot%202026-09-15%20114653.png)
-- [Application view 3](screenshots/Screenshot%202026-09-15%20114725.png)
-- [Application view 4](screenshots/Screenshot%202026-09-15%20114807.png)
-- [Application view 5](screenshots/Screenshot%202026-09-15%20114812.png)
-- [Application view 6](screenshots/Screenshot%202026-09-15%20115040.png)
-
-## License
-
-No license is currently specified. Add a license file before distributing or reusing this project publicly.
-
-## Repository
-
-The project is intended to live under [`Docker/projects`](https://github.com/4bdullahfaisal/Containerization/tree/main/Docker/projects) in the Containerization repository.
+- [view 1](screenshots/Screenshot%202026-09-15%20114514.png)
+- [view 2](screenshots/Screenshot%202026-09-15%20114653.png)
+- [view 3](screenshots/Screenshot%202026-09-15%20114725.png)
+- [view 4](screenshots/Screenshot%202026-09-15%20114807.png)
+- [view 5](screenshots/Screenshot%202026-09-15%20114812.png)
+- [view 6](screenshots/Screenshot%202026-09-15%20115040.png)
