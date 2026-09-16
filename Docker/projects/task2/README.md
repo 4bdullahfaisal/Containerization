@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/badge/ProgreeApp-Flask%20Container-0d9488?style=for-the-badge&logo=flask&logoColor=white" alt="ProgreeApp Flask container">
   <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12">
   <img src="https://img.shields.io/badge/Docker-Multi--stage-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker multi-stage build">
+  <img src="https://img.shields.io/badge/Port-6767%3A6767-f59e0b?style=for-the-badge&logo=docker&logoColor=white" alt="Container port 6767 mapped to host port 6767">
 </p>
 
 <p align="center">
@@ -20,6 +21,35 @@
 </p>
 
 > A compact, production-minded Flask service packaged as a small, secure Docker image. ProgreeApp demonstrates environment-based configuration, health checks, a non-root runtime user, and a clean multi-stage build.
+
+## Task 2: Application Containerization & Asset Optimization
+
+This project fulfills **Task 2** by packaging a modular Flask web application in a reliable, production-oriented container environment. The implementation focuses on keeping the final image small, moving build-only dependencies out of the runtime layer, mapping configuration through environment variables, and exposing a functional HTTP port.
+
+| Requirement | Implementation |
+| --- | --- |
+| Multi-stage configuration Dockerfile | `Dockerfile` uses a `python:3.12-slim-bullseye` builder stage and a separate `python:3.12-slim` runtime stage. |
+| Multi-dependency web app runtime | `requirements.txt` pins Flask for the web framework and Gunicorn for production serving. |
+| Minimized final image footprint | GCC and other build tools remain in the builder stage; dependencies are installed with `--no-cache-dir` and only `/install` is copied into the runtime image. |
+| Secure environment variable mapping | `APP_NAME`, `APP_ENV`, `PORT`, and `SECRET_KEY` are read from the environment, allowing deployment-specific values without hardcoding secrets. |
+| Functional container port routing | Gunicorn binds to `0.0.0.0:6767`, the image documents `EXPOSE 6767`, and Docker maps it with `-p 6767:6767`. |
+| Reliable runtime execution | The final container runs as the unprivileged `appuser` and uses Gunicorn instead of Flask's development server. |
+| Asset and cache optimization | `.dockerignore` excludes Python bytecode, virtual environments, test caches, secrets, documentation, and screenshots from the Docker build context. |
+
+### Containerization flow
+
+```text
+requirements.txt
+  |
+  v
+Builder stage: install dependencies into /install
+  |
+  v
+Runtime stage: copy dependencies + app.py only
+  |
+  v
+appuser -> Gunicorn -> 0.0.0.0:6767 -> host:6767
+```
 
 ## Overview
 
@@ -49,6 +79,8 @@ Flask app.py
 ```
 
 The Dockerfile separates dependency installation from runtime execution. The builder stage installs Python dependencies into `/install`; the runtime stage copies only those installed dependencies and the application code into a fresh Python slim image.
+
+The final image does not include the compiler toolchain, package cache, README files, screenshots, virtual environments, or local Python caches. This keeps the runtime layer focused on the files needed to serve the application.
 
 ## Quick Start
 
