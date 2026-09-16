@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Read config from environment variables (not hardcoded) -> "secure config"
 APP_NAME = os.getenv("APP_NAME", "ProgreeApp")
 APP_ENV = os.getenv("APP_ENV", "development")
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret") 
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
 
 @app.route('/')
 def home():
